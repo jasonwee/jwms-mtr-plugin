@@ -1,0 +1,73 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:st="jelly:stapler">
+
+    <script type="text/javascript" src="http://api.opentracker.net/api/js/vis.js"></script>
+    <link href="http://api.opentracker.net/api/css/vis-network.min.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        #mynetwork {
+            width: 1500px;
+            height: 600px;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+    <l:layout title="mtr report">
+        <l:side-panel> 
+            <st:include page="sidepanel.jelly" it="${it.run}" optional="true" /> 
+        </l:side-panel> 
+        <l:main-panel> 
+            <div id="mynetwork"></div>
+            <pre id="eventSpan"></pre>
+            <pre id="mtrOutputs"></pre>
+            <script type="text/javascript">
+            // create an array with nodes
+            var nodes = new vis.DataSet([
+               <j:forEach var="line" items="${it.mtrReport.nodes}">${line}</j:forEach>
+            ]);
+            
+            // create an array with edges
+            var edges = new vis.DataSet([
+               <j:forEach var="line" items="${it.mtrReport.edges}">${line}</j:forEach>
+            ]);
+            
+            // create a network
+            var container = document.getElementById('mynetwork');
+            
+            // provide the data in the vis format
+            var data = {
+               nodes: nodes,
+               edges: edges
+            };
+            
+            var options = {
+               nodes: {
+                  shadow:true
+               },
+               edges: {
+                  shadow:true
+               }
+            };
+            // initialize your network!
+            var network = new vis.Network(container, data, options);
+            
+            network.on("selectEdge", function(params) {
+               var link_status = edges.get(params.edges[0]).link_status;
+               var mtr_outputs = edges.get(params.edges[0]).mtr_outputs;
+               
+               document.getElementById('eventSpan').innerHTML = 'link status:' + link_status;
+               
+               var listDiv = document.getElementById('mtrOutputs');
+               listDiv.innerHTML ='';
+               var ul=document.createElement('ul');
+               for (var i = 0; i &lt; mtr_outputs.length; ++i) {
+                  var li=document.createElement('li');
+                  li.innerHTML = mtr_outputs[i];   // Use innerHTML to set the text
+                  ul.appendChild(li);
+               }
+               listDiv.appendChild(ul);    // Note here
+            });
+            </script>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>
