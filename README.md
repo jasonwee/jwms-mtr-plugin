@@ -60,6 +60,10 @@ Once this command completes successfully, use "Import..." (under the File menu i
 Do not select "Existing Maven Projects", which takes you to the m2e route
 
 
+how to build a hpi?
+```
+mvn -DskipTests clean package
+```
 
 
 
@@ -69,6 +73,5 @@ Do not select "Existing Maven Projects", which takes you to the m2e route
 
 
 
-
-
+http://visjs.org/network_examples.html
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial
