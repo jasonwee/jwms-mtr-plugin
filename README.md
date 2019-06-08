@@ -27,7 +27,7 @@ host1.mydomain.com->host3.mydomain.com,
 
 
 
-how is this project begin?
+# How is this project begin?
 ```
 $ # export java 8 environment
 $ JAVA_HOME=/usr/lib/jvm/jdk1.8.0_152/
@@ -94,14 +94,7 @@ how to build a hpi?
 mvn -DskipTests clean package
 ```
 
-
-
-
-
-
-
-
-
+# References
 http://visjs.org/network_examples.html
 
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial
