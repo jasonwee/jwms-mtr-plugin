@@ -1,9 +1,38 @@
-export java 8 environment
+# Introduction
+jwms-mtr-plugin allow server admin to visualize network traceroute tools output. 
 
+# Quick start
+Due to privacy concern, some part of the screenshot has been filtered out and it will be replace with text explanation below.
 
-
-how to begin?
+1. Download the hpi https://github.com/jasonwee/jwms-mtr-plugin/releases . make sure you have mtr installed on all your hosts configured.
+2. Setup a jenkin freestyle project
+3. In the build section, select 'Node Pair'.
+4. Configuration ssh username, ssh password, ssh port will be used between nodes. So it is advisable to have a common monitoring ssh user.
+5. For node pair, entry is separated by command and a newline. For example
 ```
+host1.mydomain.com->host2.mydomain.com,
+host2.mydomain.com->host1.mydomain.com,
+host3.mydomain.com->host1.mydomain.com,
+host1.mydomain.com->host3.mydomain.com,
+```
+![configuration](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/configuration.png "configuration")
+6. Click build and check the console output
+![console output](https://github.com/jasonwee/jwms-mtr-plugin/blob/master/screenshots/console_output.png "console output")
+7. When the build is done, there should be a 'MTR Report' link.
+8. Click on the 'MTR Report' link.
+![mtr report](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/mtr_report.png "mtr report")
+9. If you click on the link, the mtr report should shown below the graph
+![mtr report 1](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/mtr_report_1.png "mtr report 1")
+
+
+
+
+how is this project begin?
+```
+$ # export java 8 environment
+$ JAVA_HOME=/usr/lib/jvm/jdk1.8.0_152/
+$ 
+$ # setup project framework
 $ mvn -U archetype:generate -Dfilter=io.jenkins.archetypes:
 ...
 [INFO] Generating project in Interactive mode
@@ -74,4 +103,5 @@ mvn -DskipTests clean package
 
 
 http://visjs.org/network_examples.html
+
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial
