@@ -29,6 +29,14 @@ public class Node {
 		this.id = id;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	//{id: 1, label: '${it.sourceNode}', image: 'http://api.opentracker.net/api/img/Hardware-My-Computer-3-icon.png', shape: 'image', size: 25, title: '78.46.64.14'},
 	public String toString() {
 		return "{"+ 
