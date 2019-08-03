@@ -9,6 +9,9 @@
     <f:entry title="${%SSHPort}" field="sshPort">
         <f:textbox />
     </f:entry>
+        <f:entry title="${%IP2LocationLib}" field="ip2locationLib">
+        <f:textbox />
+    </f:entry>
     <f:entry title="${%Nodes}" field="nodes">
         <f:textarea />
     </f:entry>
