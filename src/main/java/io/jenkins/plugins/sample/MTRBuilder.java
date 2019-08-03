@@ -27,6 +27,9 @@ import hudson.model.TaskListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Builder;
 import hudson.util.FormValidation;
+import io.jenkins.util.Command;
+import io.jenkins.util.IP;
+import io.jenkins.util.IP2Location;
 import jenkins.tasks.SimpleBuildStep;
 
 import com.jcraft.jsch.ChannelExec;
@@ -42,16 +45,19 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
     private String sshPassword;
     private int sshPort;
 
+    private String ip2locationLib;
+
     private StringBuffer mtrOutputs;
     private Map<String, Integer> ids;
     private Integer id;
 
     @DataBoundConstructor
-    public MTRBuilder(String nodes, String sshUsername, String sshPassword, int sshPort) {
+    public MTRBuilder(String nodes, String sshUsername, String sshPassword, int sshPort, String ip2locationLib) {
         this.nodes = nodes;
         this.sshUsername = sshUsername;
         this.sshPassword = sshPassword;
         this.sshPort = sshPort;
+        this.ip2locationLib = ip2locationLib;
     }
 
     public String getNodes() {
@@ -86,6 +92,14 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
         this.sshPort = sshPort;
     }
 
+    public String getIp2locationLib() {
+        return ip2locationLib;
+    }
+
+    public void setIp2locationLib(String ip2locationLib) {
+        this.ip2locationLib = ip2locationLib;
+    }
+
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener)
             throws InterruptedException, IOException {
@@ -94,6 +108,9 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             listener.getLogger().println("support only linux/unix");
             return;
         }
+
+        IP2Location ip2location = new IP2Location(getIp2locationLib());
+        String country = "";
 
         long start = System.currentTimeMillis();
         listener.getLogger().println("begin " + start);
@@ -109,6 +126,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
         String[] nodePairs = nodes.split(",");
 
         for (String nodePair : nodePairs) {
+
             mtrOutput = new StringBuffer();
 
             String[] currentNodes = nodePair.split("->");
@@ -124,6 +142,14 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             } else {
                 n1.setId(ids.get(sNode));
             }
+
+            try {
+                //country = ip2location.find(IP.resolveHostname(sNode)).getCountry_long();
+                country = Command.run("python", "sample.py", IP.resolveHostname(sNode), getIp2locationLib()).trim();
+            } catch (Exception e) {country = ""; }
+
+            String title = String.format("hostname : %s <br> ip : %s <br> country: %s <br>", sNode, IP.resolveHostname(sNode), country);
+            n1.setTitle(title);
             mtrReport.addNode(n1);
 
             Node n2 = new Node(dNode);
@@ -134,6 +160,12 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             } else {
                 n2.setId(ids.get(dNode));
             }
+            try {
+                //country = ip2location.find(IP.resolveHostname(dNode)).getCountry_long();
+                country = Command.run("python", "sample.py", IP.resolveHostname(dNode), getIp2locationLib()).trim();
+            } catch (Exception e) {country = "";}
+            title = String.format("hostname : %s <br> ip : %s <br> country: %s <br>", dNode, IP.resolveHostname(dNode), country);
+            n2.setTitle(title);
             mtrReport.addNode(n2);
 
             String mtrCommand = String.format("sudo mtr --report-wide -s 10 -r -c 10 %s", dNode);
