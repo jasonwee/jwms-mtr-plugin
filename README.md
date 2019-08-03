@@ -1,13 +1,13 @@
 # Introduction
-jwms-mtr-plugin allow server admin to visualize network traceroute tools output. 
+jwms-mtr-plugin allow server admin to visualize network traceroute tools output in Jenkins.
 
 # Quick start
-Due to privacy concern, some part of the screenshot has been filtered out and it will be replace with text explanation below.
+Due to privacy concern, some part of the screenshots have been filtered out and it will be replace with text explanation below.
 
-1. Download the hpi https://github.com/jasonwee/jwms-mtr-plugin/releases . make sure you have mtr installed on all your hosts configured.
-2. Setup a jenkin freestyle project
+1. Download the hpi https://github.com/jasonwee/jwms-mtr-plugin/releases . Make sure you have mtr installed on all your hosts configured.
+2. Setup a Jenkins freestyle project
 3. In the build section, select 'Node Pair'.
-4. Configuration ssh username, ssh password, ssh port will be used between nodes. So it is advisable to have a common monitoring ssh user.
+4. Configure ssh username, ssh password and ssh port will be used between nodes. So it is advisable to have a common monitoring ssh user.
 5. For node pair, entry is separated by command and a newline. For example
 ```
 host1.mydomain.com->host2.mydomain.com,
@@ -23,9 +23,12 @@ host1.mydomain.com->host3.mydomain.com,
 ![mtr report](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/mtr_report.png "mtr report")
 9. If you click on the link, the mtr report should shown below the graph
 ![mtr report 1](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/mtr_report_1.png "mtr report 1")
+10. If you point the mouse cursor to the pc icon, information such as ip, hostname and country will be shown.
+![device info](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/device_info.png "device info")
 
-
-
+# Requirements
+* java8 onward
+* python2 onward
 
 # How is this project begin?
 ```
