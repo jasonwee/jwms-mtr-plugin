@@ -45,22 +45,22 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
     private String sshPassword;
     private int sshPort;
 
-    private String ip2locationLib;
+    private String ip2locationPyPath;
 
     private StringBuffer mtrOutputs;
     private Map<String, Integer> ids;
     private Integer id;
 
     @DataBoundConstructor
-    public MTRBuilder(String nodes, String sshUsername, String sshPassword, int sshPort, String ip2locationLib) {
+    public MTRBuilder(String nodes, String sshUsername, String sshPassword, int sshPort, String ip2locationPyPath) {
         this.nodes = nodes;
         this.sshUsername = sshUsername;
         this.sshPassword = sshPassword;
         this.sshPort = sshPort;
-        this.ip2locationLib = ip2locationLib;
+        this.ip2locationPyPath = ip2locationPyPath;
     }
 
-    public String getNodes() {
+	public String getNodes() {
         return nodes;
     }
 
@@ -92,13 +92,13 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
         this.sshPort = sshPort;
     }
 
-    public String getIp2locationLib() {
-        return ip2locationLib;
-    }
+    public String getIp2locationPyPath() {
+		return ip2locationPyPath;
+	}
 
-    public void setIp2locationLib(String ip2locationLib) {
-        this.ip2locationLib = ip2locationLib;
-    }
+	public void setIp2locationPyPath(String ip2locationPyPath) {
+		this.ip2locationPyPath = ip2locationPyPath;
+	}
 
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener)
@@ -109,7 +109,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             return;
         }
 
-        IP2Location ip2location = new IP2Location(getIp2locationLib());
+        IP2Location ip2location = new IP2Location(getIp2locationPyPath() + "IP2LOCATION-LITE-DB1.IPV6.BIN");
         String country = "";
 
         long start = System.currentTimeMillis();
@@ -145,7 +145,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
 
             try {
                 //country = ip2location.find(IP.resolveHostname(sNode)).getCountry_long();
-                country = Command.run("python", "sample.py", IP.resolveHostname(sNode), getIp2locationLib()).trim();
+                country = Command.run("python", getIp2locationPyPath() + "sample.py", IP.resolveHostname(sNode)).trim();
             } catch (Exception e) {country = ""; }
 
             String title = String.format("hostname : %s <br> ip : %s <br> country: %s <br>", sNode, IP.resolveHostname(sNode), country);
@@ -162,7 +162,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             }
             try {
                 //country = ip2location.find(IP.resolveHostname(dNode)).getCountry_long();
-                country = Command.run("python", "sample.py", IP.resolveHostname(dNode), getIp2locationLib()).trim();
+                country = Command.run("python", getIp2locationPyPath() + "sample.py", IP.resolveHostname(dNode)).trim();
             } catch (Exception e) {country = "";}
             title = String.format("hostname : %s <br> ip : %s <br> country: %s <br>", dNode, IP.resolveHostname(dNode), country);
             n2.setTitle(title);
