@@ -8,6 +8,6 @@ import os
 import sys
 import IP2Location
 
-database = IP2Location.IP2Location(sys.argv[2])
+database = IP2Location.IP2Location('IP2LOCATION-LITE-DB1.IPV6.BIN')
 rec = database.get_all(sys.argv[1])
 print(rec.country_long)
