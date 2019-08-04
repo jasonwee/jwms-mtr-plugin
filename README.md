@@ -34,6 +34,9 @@ host1.mydomain.com->host3.mydomain.com,
 * java8 onward
 * python2 onward
 
+# Database update
+You can download IP2Location libraries here https://download.ip2location.com/lite/ and replace the lib in step 6 with this updated lib.
+
 # How is this project begin?
 ```
 $ # export java 8 environment
