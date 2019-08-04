@@ -9,7 +9,7 @@
     <f:entry title="${%SSHPort}" field="sshPort">
         <f:textbox />
     </f:entry>
-        <f:entry title="${%IP2LocationLib}" field="ip2locationLib">
+        <f:entry title="${%IP2LocationPyPath}" field="ip2locationPyPath">
         <f:textbox />
     </f:entry>
     <f:entry title="${%Nodes}" field="nodes">
