@@ -16,14 +16,18 @@ host3.mydomain.com->host1.mydomain.com,
 host1.mydomain.com->host3.mydomain.com,
 ```
 ![configuration](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/configuration.png "configuration")
-6. Click build and check the console output
+6. create a directory where Jenkins can read the directory. Place the following files found in src/main/resources to the directory you created.
+6.1  IP2Location.py
+6.2  IPV6-COUNTRY-REGION-CITY-ISP.BIN
+6.3  sample.py
+7. Click build and check the console output
 ![console output](https://github.com/jasonwee/jwms-mtr-plugin/blob/master/screenshots/console_output.png "console output")
-7. When the build is done, there should be a 'MTR Report' link.
-8. Click on the 'MTR Report' link.
+8. When the build is done, there should be a 'MTR Report' link.
+9. Click on the 'MTR Report' link.
 ![mtr report](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/mtr_report.png "mtr report")
-9. If you click on the link, the mtr report should shown below the graph
+10. If you click on the link, the mtr report should shown below the graph
 ![mtr report 1](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/mtr_report_1.png "mtr report 1")
-10. If you point the mouse cursor to the pc icon, information such as ip, hostname and country will be shown.
+11. If you point the mouse cursor to the pc icon, information such as ip, hostname and country will be shown.
 ![device info](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/device_info.png "device info")
 
 # Requirements
