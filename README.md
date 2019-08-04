@@ -17,9 +17,9 @@ host1.mydomain.com->host3.mydomain.com,
 ```
 ![configuration](https://raw.githubusercontent.com/jasonwee/jwms-mtr-plugin/master/screenshots/configuration.png "configuration")
 6. create a directory where Jenkins can read the directory. Place the following files found in src/main/resources to the directory you created.
- * IP2Location.py
- * IPV6-COUNTRY-REGION-CITY-ISP.BIN
- * sample.py
+    * IP2Location.py
+    * IPV6-COUNTRY-REGION-CITY-ISP.BIN
+    * sample.py
 7. Click build and check the console output
 ![console output](https://github.com/jasonwee/jwms-mtr-plugin/blob/master/screenshots/console_output.png "console output")
 8. When the build is done, there should be a 'MTR Report' link.
