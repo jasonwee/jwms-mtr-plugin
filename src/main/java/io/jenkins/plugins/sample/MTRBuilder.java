@@ -109,7 +109,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             return;
         }
 
-        IP2Location ip2location = new IP2Location(getIp2locationPyPath() + "IP2LOCATION-LITE-DB1.IPV6.BIN");
+        //IP2Location ip2location = new IP2Location(getIp2locationPyPath() + "IP2LOCATION-LITE-DB1.IPV6.BIN");
         String country = "";
 
         long start = System.currentTimeMillis();
