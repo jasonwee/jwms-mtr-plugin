@@ -42,6 +42,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
     private String nodes;
 
     private String sshUsername;
+    private String sshKeyfile;
     private String sshPassword;
     private int sshPort;
 
@@ -52,9 +53,10 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
     private Integer id;
 
     @DataBoundConstructor
-    public MTRBuilder(String nodes, String sshUsername, String sshPassword, int sshPort, String ip2locationPyPath) {
+    public MTRBuilder(String nodes, String sshUsername, String sshKeyfile, String sshPassword, int sshPort, String ip2locationPyPath) {
         this.nodes = nodes;
         this.sshUsername = sshUsername;
+        this.sshKeyfile = sshKeyfile;
         this.sshPassword = sshPassword;
         this.sshPort = sshPort;
         this.ip2locationPyPath = ip2locationPyPath;
@@ -74,6 +76,14 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
 
     public void setSshUsername(String sshUsername) {
         this.sshUsername = sshUsername;
+    }
+
+    public String getSshKeyfile() {
+        return sshKeyfile;
+    }
+
+    public void setSshKeyfile(String sshKeyfile) {
+        this.sshKeyfile = sshKeyfile;
     }
 
     public String getSshPassword() {
@@ -272,7 +282,10 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
 
         JSch jsch = new JSch();
         Session session = jsch.getSession(getSshUsername(), sNode, getSshPort());
-        session.setPassword(getSshPassword());
+        if (sshKeyfile != null && !sshKeyfile.isEmpty())
+            jsch.addIdentity(sshKeyfile);
+        else
+            session.setPassword(getSshPassword());
 
         final Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
