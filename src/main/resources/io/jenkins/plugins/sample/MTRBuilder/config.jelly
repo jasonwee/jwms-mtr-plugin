@@ -3,6 +3,9 @@
     <f:entry title="${%SSHUsername}" field="sshUsername">
         <f:textbox />
     </f:entry>
+    <f:entry title="${%SSHKeyfile}" field="sshKeyfile">
+        <f:textbox />
+    </f:entry>
     <f:entry title="${%SSHPassword}" field="sshPassword">
         <f:textbox />
     </f:entry>
