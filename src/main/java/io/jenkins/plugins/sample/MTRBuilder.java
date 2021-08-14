@@ -46,6 +46,9 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
     private String sshPassword;
     private int sshPort;
 
+    private int packetSize;
+    private int reportCount;
+
     private String ip2locationPyPath;
 
     private StringBuffer mtrOutputs;
@@ -53,12 +56,14 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
     private Integer id;
 
     @DataBoundConstructor
-    public MTRBuilder(String nodes, String sshUsername, String sshKeyfile, String sshPassword, int sshPort, String ip2locationPyPath) {
+    public MTRBuilder(String nodes, String sshUsername, String sshKeyfile, String sshPassword, int sshPort, int packetSize, int reportCount, String ip2locationPyPath) {
         this.nodes = nodes;
         this.sshUsername = sshUsername;
         this.sshKeyfile = sshKeyfile;
         this.sshPassword = sshPassword;
         this.sshPort = sshPort;
+        this.packetSize = packetSize;
+        this.reportCount = reportCount;
         this.ip2locationPyPath = ip2locationPyPath;
     }
 
@@ -100,6 +105,22 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
 
     public void setSshPort(int sshPort) {
         this.sshPort = sshPort;
+    }
+
+    public int getPacketSize() {
+        return packetSize;
+    }
+
+    public void setPacketSize(int packetSize) {
+        this.packetSize = packetSize;
+    }
+
+    public int getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
     }
 
     public String getIp2locationPyPath() {
@@ -178,7 +199,7 @@ public class MTRBuilder extends Builder implements SimpleBuildStep {
             n2.setTitle(title);
             mtrReport.addNode(n2);
 
-            String mtrCommand = String.format("sudo mtr --report-wide -s 10 -r -c 10 %s", dNode);
+            String mtrCommand = String.format("sudo mtr --report-wide -s %s -r -c %s %s", getPacketSize(), getReportCount(), dNode);
             listener.getLogger().println("running command '" + mtrCommand + "' on " + sNode);
 
             executeCommand(listener.getLogger(), mtrCommand, false, sNode, mtrOutput);

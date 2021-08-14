@@ -18,4 +18,10 @@
     <f:entry title="${%Nodes}" field="nodes">
         <f:textarea />
     </f:entry>
+    <f:entry title="${%PacketSize}" field="packetSize">
+        <f:textbox default="10" />
+    </f:entry>
+    <f:entry title="${%ReportCount}" field="reportCount">
+        <f:textbox default="10" />
+    </f:entry>
 </j:jelly>
