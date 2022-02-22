@@ -108,3 +108,5 @@ mvn -DskipTests clean package
 http://visjs.org/network_examples.html
 
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial
+
+https://jenkinsistheway.io/user-story/to-create-a-repetitive-success-in-network-diagnostic-collection-monitoring-and-report-display/
